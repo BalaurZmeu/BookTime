@@ -13,7 +13,7 @@ class TestSignal(TestCase):
         product.save()
         
         with open(
-            'main/tests/test_pics/the-cathedral.jpg', 'rb'
+            'main/fixtures/pics/the-cathedral.jpg', 'rb'
         ) as f:
             image = models.ProductImage(
                 product=product,
@@ -26,7 +26,7 @@ class TestSignal(TestCase):
         image.refresh_from_db()
         
         with open(
-            'main/tests/test_pics/tctb.jpg', 'rb'
+            'main/fixtures/pics/tctb.jpg', 'rb'
         ) as f:
             expected_content = f.read()
             assert image.thumbnail.read() == expected_content
