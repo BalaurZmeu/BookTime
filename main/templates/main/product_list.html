@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>products</h2>
+  {% for product in page_obj %}
+    <p>{{ product.name }}</p>
+    <p>
+      <a href="{% url 'products' product.slug %}">
+          See it here</a>
+    </p>
+    {% if not forloop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock content %}
