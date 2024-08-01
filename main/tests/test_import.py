@@ -11,8 +11,8 @@ class TestImport(TestCase):
     def test_import_data(self):
         out = StringIO()
         args = [
-            'main/fixtures/product_sample.csv',
-            'main/fixtures/product_sampleimages/']
+            'main/fixtures/prod_data.csv',
+            'main/fixtures/pics/']
         call_command('import_data', *args, stdout=out)
         
         expected_out = (

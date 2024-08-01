@@ -24,9 +24,8 @@ class Command(BaseCommand):
             product.description = row['description']
             product.slug = slugify(row['name'])
             for import_tag in row['tags'].split('|'):
-                tag, tag_created = models.ProductTag.objects.
-                    get_or_create(
-                        name=import_tag)
+                tag, tag_created = models.ProductTag.objects.get_or_create(
+                    name=import_tag)
                 product.tags.add(tag)
                 c['tags'] += 1
                 if tag_created:
