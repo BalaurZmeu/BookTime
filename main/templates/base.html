@@ -29,6 +29,9 @@
         {% if request.path == '/about_us/' %}active{% endif %}"
         href="{% url 'about_us' %}">About us</a>
       <a class="nav-item nav-link
+        {% if request.path == '/products/all/' %}active{% endif %}"
+        href="{% url 'product_list' 'all' %}">Products</a>
+      <a class="nav-item nav-link
         {% if request.path == '/contact_us/' %}active{% endif %}"
         href="{% url 'contact_us' %}">Contact us</a>
     </div>
