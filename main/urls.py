@@ -12,6 +12,8 @@ urlpatterns = [
         name='home',
     ),
     
+    path('signup/', views.SignupView.as_view(), name='signup'),
+    
     path(
         'about_us/',
         TemplateView.as_view(template_name='main/about_us.html'),
