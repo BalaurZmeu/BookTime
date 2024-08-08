@@ -1,8 +1,8 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
-from main import models
-from main import views
+from main import models, views, forms
 
 
 urlpatterns = [
@@ -15,6 +15,14 @@ urlpatterns = [
         'signup/',
         views.SignupView.as_view(),
         name='signup'),
+    
+    path(
+        'login/',
+        auth_views.LoginView.as_view(
+            template_name = 'login.html',
+            form_class = forms.AuthenticationForm,
+        ),
+        name='login'),
     
     path(
         'about_us/',
