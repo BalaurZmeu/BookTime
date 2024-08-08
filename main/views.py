@@ -58,7 +58,8 @@ class SignupView(FormView):
     
         email = form.cleaned_data.get('email')
         raw_password = form.cleaned_data.get('password1')
-        logger.info('New signup for email=%s through SignupView', email)
+        logger.info(
+            'New signup for email=%s through SignupView', email)
     
         user = authenticate(email=email, password=raw_password)
         login(self.request, user)
