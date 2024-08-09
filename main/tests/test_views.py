@@ -104,3 +104,33 @@ class TestPage(TestCase):
         )
         mock_send.assert_called_once()
 
+    def test_address_list_page_returns_only_owned(self):
+        user1 = models.User.objects.create_user(
+            'user1', 'pw432joij')
+        user2 = models.User.objects.create_user(
+            'user2', 'pw432joij')
+        models.Address.objects.create(
+            user = user1,
+            name = 'John Kimball',
+            address1 = 'flat 2',
+            address2 = '12 Stralz avenue',
+            city = 'London',
+            country = 'uk',
+        )
+        models.Address.objects.create(
+            user = user2,
+            name = 'Marc Kimball',
+            address1 = 'flat 12',
+            address2 = '123 Deacon road',
+            city = 'London',
+            country = 'uk',
+        )
+        self.client.force_login(user2)
+        response = self.client.get(reverse('address_list'))
+        self.assertEqual(response.status_code, 200)
+        user2_address_list = models.Address.objects.filter(user=user2)
+        self.assertEqual(
+            list(response.context['object_list']),
+            list(user2_address_list),
+        )
+
