@@ -133,4 +133,21 @@ class TestPage(TestCase):
             list(response.context['object_list']),
             list(user2_address_list),
         )
+    
+    def test_address_create_stores_user(self):
+        user1 = models.User.objects.create_user(
+            'user1', 'pw432joij')
+        post_data = {
+            'name': 'John Kercher',
+            'address1': '1 av st',
+            'address2': '',
+            'zip_code': 'MA12GS',
+            'city': 'Manchester',
+            'country': 'uk',
+        }
+        self.client.force_login(user1)
+        self.client.post(
+            reverse('address_create'), post_data)
+        self.assertTrue(
+            models.Address.objects.filter(user=user1).exists())
 
