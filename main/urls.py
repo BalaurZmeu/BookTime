@@ -63,5 +63,10 @@ urlpatterns = [
         'address/<int:pk>/delete/',
         views.AddressDeleteView.as_view(),
         name='address_delete'),
+    
+    path(
+        'add_to_basket/',
+        views.add_to_basket,
+        name='add_to_basket'),
 ]
 
