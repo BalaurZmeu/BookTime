@@ -49,11 +49,15 @@
   </div>
 {% endif %}
 
-{% block content %}
-{% endblock content %}
+  {% block content %}
+  {% endblock content %}
 
-<script href="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-<script href="{% static 'js/popper.min.js' %}"></script>
-<script href="{% static 'js/bootstrap.min.js' %}"></script>
+  <script href="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script href="{% static 'js/popper.min.js' %}"></script>
+  <script href="{% static 'js/bootstrap.min.js' %}"></script>
+  
+  {% block js %}
+  {% endblock js %}
+  
 </body>
 </html>
