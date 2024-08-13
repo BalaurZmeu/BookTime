@@ -7,3 +7,4 @@ class PlusMinusNumberInput(Widget):
     class Media:
         css = {'all': ('css/plusminusnumber.css',)}
         js = ('js/plusminusnumber.js',)
+
