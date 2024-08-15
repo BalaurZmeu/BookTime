@@ -73,5 +73,15 @@ urlpatterns = [
         'basket/',
         views.manage_basket,
         name='basket'),
+    
+    path(
+        'order/done/',
+        TemplateView.as_view(template_name='order_done.html'),
+        name='checkout_done'),
+    
+    path(
+        'order/address_select/',
+        views.AddressSelectionView.as_view(),
+        name='address_select'),
 ]
 
