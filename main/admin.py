@@ -86,3 +86,17 @@ class UserAdmin(DjangoUserAdmin):
     )
     search_fields = ("email", "first_name", "last_name")
     ordering = ("email",)
+
+
+class BasketLineInline(admin.TabularInline):
+    model = models.BasketLine
+    raw_id_fields = ('product',)
+
+
+@admin.register(models.Basket)
+class BasketAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'status', 'count')
+    list_editable = ('status',)
+    list_filter = ('status',)
+    inlines = (BasketLineInline,)
+
