@@ -19,3 +19,20 @@ class FrontendTests(StaticLiveServerTestCase):
     def tearDownClass(cls):
         cls.selenium.quit()
         super().tearDownClass()
+    
+    def test_product_page_switches_images_correctly(self):
+        product = models.Product.objects.create(
+            name='The cathedral and the bazaar',
+            slug='cathedral-bazaar',
+            price=Decimal('10.00')
+        )
+        for fname in ['cb1.jpg', 'cb2.jpg', 'cb3.jpg']:
+            with open(f'main/fixtures/cb/{fname}', 'rb') as f:
+                image = models.ProductImage(
+                    product = product,
+                    image = ImageFile(f, name=fname),
+                )
+                image.save()
+        
+        self.selenium.get()
+
