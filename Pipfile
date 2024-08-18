@@ -8,6 +8,7 @@ python-decouple = "*"
 psycopg2-binary = "*"
 pillow = "*"
 django = "*"
+splinter = "*"
 
 [dev-packages]
 
