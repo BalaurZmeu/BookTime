@@ -34,5 +34,24 @@ class FrontendTests(StaticLiveServerTestCase):
                 )
                 image.save()
         
-        self.selenium.get()
+        self.selenium.get(
+            '%s%s'
+            % (
+                self.live_server_url,
+                reverse(
+                    'product',
+                    kwargs={'slug': 'cathedral-bazaar'},
+                ),
+            )
+        )
+        current_image = self.selenium.find_element_by_css_selector(
+            '.current-image > img:nth-child(1)'
+        ).get_attribute('src')
+        self.selenium.find_element_by_css_selector(
+            'div.image:nth-child(3) > img:nth-child(1)'
+        ).click()
+        new_image = self.selenium.find_element_by_css_selector(
+            '.current-image > img:nth-child(1)'
+        ).get_attribute('src')
+        self.assertNotEqual(current_image, new_image)
 
