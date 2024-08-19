@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'webpack_loader',
     'main.apps.MainConfig',
 ]
 
@@ -81,6 +82,15 @@ TEMPLATES = [
         },
     },
 ]
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': join(
+            BASE_DIR, 'webpack-stats.json'
+        ),
+    }
+}
 
 WSGI_APPLICATION = 'booktime.wsgi.application'
 

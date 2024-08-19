@@ -8,7 +8,7 @@ python-decouple = "*"
 psycopg2-binary = "*"
 pillow = "*"
 django = "*"
-splinter = "*"
+django-webpack-loader = "*"
 
 [dev-packages]
 
