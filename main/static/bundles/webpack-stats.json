@@ -1,0 +1,14 @@
+{
+  "status": "done",
+  "assets": {
+    "imageswitcher.bundle.js": {
+      "name": "imageswitcher.bundle.js",
+      "path": "/home/zmeu/code/BookTime/main/static/bundles/imageswitcher.bundle.js"
+    }
+  },
+  "chunks": {
+    "imageswitcher": [
+      "imageswitcher.bundle.js"
+    ]
+  }
+}

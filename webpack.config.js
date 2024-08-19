@@ -7,7 +7,7 @@ module.exports = {
     imageswitcher: './frontend/imageswitcher.js'
   },
   plugins: [
-    new BundleTracker({filename: './webpack-stats.json'}),
+    new BundleTracker({filename: 'webpack-stats.json'}),
   ],
   output: {
     filename: '[name].bundle.js',
