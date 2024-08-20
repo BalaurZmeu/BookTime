@@ -45,27 +45,29 @@
 
 {% block js %}
   {% render_bundle 'imageswitcher' 'js' %}
-  <script>
-    document.addEventListener('DOMContentLoaded', function(event) {
-      var images = [
-        {% for image in object.productimage_set.all %}
-          {
-            'image': '{{ image.image.url|safe }}',
-            'thumbnail': '{{ image.thumbnail.url|safe }}',
-          },
-        {% endfor %}
-      ];
-      ReactDOM.render(
-        React.createElement(
-          ImageBox,
-          {
-            images: images,
-            imageStart: images[0]
-          }
-        ), // end React.createElement
-        document.getElementById('imagebox'),
-      ); // end ReactDOM.render
-    }); // end document.addEventListener
-  </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(event) {
+    var images = [
+      {% for image in object.productimage_set.all %}
+        {
+          'image': '{{ image.image.url|safe }}',
+          'thumbnail': '{{ image.thumbnail.url|safe }}',
+        },
+      {% endfor %}
+    ];
+    const container = document.getElementById('imagebox');
+    const root = ReactDOM.createRoot(container);
+    root.render(
+      React.createElement(
+        ImageBox,
+        {
+          images: images,
+          imageStart: images[0]
+        }
+      ) // end React.createElement
+    ); // end root.render
+  }); // end document.addEventListener
+</script>
+
 {% endblock js %}
 

@@ -1,18 +1,18 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom/client');
 const e = React.createElement;
 
 var imageStyle = {
   margin: '10px',
   display: 'inline-block'
-}
+};
 
 class ImageBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentImage: this.props.imageStart
-    }
+    };
   }
   
   click(image) {
@@ -39,12 +39,13 @@ class ImageBox extends React.Component {
                e('img', {src: this.state.currentImage.image})
              ),
              images,
-           ) // end element className 'gallery'
+           ); // end element className 'gallery'
   } // end render
 } // end class ImageBox
 
-window.React = React
-window.ReactDOM = ReactDOM
-window.ImageBox = ImageBox
+window.React = React;
+window.ReactDOM = ReactDOM;
+window.ImageBox = ImageBox;
 
-module.exports = ImageBox
+module.exports = ImageBox;
+

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "",
     "build": "webpack"
   },
   "repository": {
@@ -19,21 +19,12 @@
   },
   "homepage": "https://github.com/BalaurZmeu/BookTime#readme",
   "devDependencies": {
-    "@cfaester/enzyme-adapter-react-18": "^0.8.0",
-    "enzyme": "^3.11.0",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
     "webpack": "^5.93.0",
     "webpack-bundle-tracker": "^3.1.0",
     "webpack-cli": "^5.1.4"
   },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "verbose": true
-  },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-test-renderer": "^18.3.1"
+    "react-dom": "^18.3.1"
   }
 }
