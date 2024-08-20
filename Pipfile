@@ -9,6 +9,11 @@ psycopg2-binary = "*"
 pillow = "*"
 django = "*"
 django-webpack-loader = "*"
+django-extensions = "*"
+pydotplus = "*"
+ipython = "*"
+werkzeug = "*"
+factory-boy = "*"
 
 [dev-packages]
 
