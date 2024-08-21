@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'webpack_loader',
     'django_extensions',
     'debug_toolbar',
+    'django_filters',
+    'django_tables2',
     'main.apps.MainConfig',
 ]
 
