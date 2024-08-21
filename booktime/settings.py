@@ -90,6 +90,8 @@ TEMPLATES = [
     },
 ]
 
+DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap.html'
+
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': 'bundles/',
