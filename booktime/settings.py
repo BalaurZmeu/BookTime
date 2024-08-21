@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_filters',
     'django_tables2',
+    'widget_tweaks',
     'main.apps.MainConfig',
 ]
 
