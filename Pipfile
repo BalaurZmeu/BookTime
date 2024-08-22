@@ -18,6 +18,7 @@ django-debug-toolbar = "*"
 django-tables2 = "*"
 django-filter = "*"
 django-widget-tweaks = "*"
+djangorestframework = "*"
 
 [dev-packages]
 

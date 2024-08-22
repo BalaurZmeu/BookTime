@@ -35,6 +35,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
+    '127.0.0.1',
     '192.168.0.103',
     '192.168.123.182',
     '0.0.0.0',
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django_tables2',
     'widget_tweaks',
+    'rest_framework',
     'main.apps.MainConfig',
 ]
 
@@ -100,6 +102,22 @@ WEBPACK_LOADER = {
             BASE_DIR, 'webpack-stats.json'
         ),
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.DjangoModelPermissions',
+    ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100
 }
 
 WSGI_APPLICATION = 'booktime.wsgi.application'
