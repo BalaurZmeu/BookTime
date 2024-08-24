@@ -310,3 +310,61 @@ class ReportingColoredAdminSite(ColoredAdminSite):
         extra_context = {'reporting_pages': reporting_pages}
         return super().index(request, extra_context)
 
+
+class OwnersAdminSite(ReportingColoredAdminSite):
+    site_header = 'BookTime owners administration'
+    site_header_color = 'black'
+    module_caption_color = 'grey'
+    
+    def has_permission(self, request):
+        return(
+            request.user.is_active and request.user.is_superuser
+        )
+
+
+class CentralOfficeAdminSite(ReportingColoredAdminSite):
+    site_header = 'BookTime central office administration'
+    site_header_color = 'purple'
+    module_caption_color = 'pink'
+    
+    def has_permission(self, request):
+        return(
+            request.user.is_active and request.user.is_employee
+        )
+
+
+class DispatchersAdminSite(ColoredAdminSite):
+    site_header = 'BookTime dispatch administration'
+    site_header_color = 'green'
+    module_caption_color = 'lightgreen'
+    
+    def has_permission(self, request):
+        return(
+            request.user.is_active and request.user.is_dispatcher
+        )
+
+main_admin = OwnersAdminSite()
+main_admin.register(models.Product, ProductAdmin)
+main_admin.register(models.ProductTag, ProductTagAdmin)
+main_admin.register(models.ProductImage, ProductImageAdmin)
+main_admin.register(models.User, UserAdmin)
+main_admin.register(models.Address, AddressAdmin)
+main_admin.register(models.Basket, BasketAdmin)
+main_admin.register(models.Order, OrderAdmin)
+
+central_office_admin = CentralOfficeAdminSite(
+    'central-office-admin')
+central_office_admin.register(models.Product, ProductAdmin)
+central_office_admin.register(models.ProductTag, ProductTagAdmin)
+central_office_admin.register(
+    models.ProductImage, ProductImageAdmin)
+central_office_admin.register(models.Address, AddressAdmin)
+central_office_admin.register(
+    models.Order, CentralOfficeOrderAdmin)
+
+dispatchers_admin = DispatchersAdminSite('dispatchers-admin')
+dispatchers_admin.register(
+    models.Product, DispatchersProductAdmin)
+dispatchers_admin.register(models.ProductTag, ProductTagAdmin)
+dispatchers_admin.register(models.Order, DispatchersOrderAdmin)
+
