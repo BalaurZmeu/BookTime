@@ -324,8 +324,8 @@ class OwnersAdminSite(ReportingColoredAdminSite):
 
 class CentralOfficeAdminSite(ReportingColoredAdminSite):
     site_header = 'BookTime central office administration'
-    site_header_color = 'purple'
-    module_caption_color = 'pink'
+    site_header_color = '#31004a'
+    module_caption_color = '#8300c4'
     
     def has_permission(self, request):
         return(
@@ -335,8 +335,8 @@ class CentralOfficeAdminSite(ReportingColoredAdminSite):
 
 class DispatchersAdminSite(ColoredAdminSite):
     site_header = 'BookTime dispatch administration'
-    site_header_color = 'green'
-    module_caption_color = 'lightgreen'
+    site_header_color = '#004d25'
+    module_caption_color = '#11823b'
     
     def has_permission(self, request):
         return(
