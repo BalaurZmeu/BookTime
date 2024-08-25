@@ -9,7 +9,7 @@ from django.db.models.functions import TruncDay
 from django.db.models import Avg, Count, Min, Sum
 from django.urls import path
 from django.template.response import TemplateResponse
-
+from django import forms
 from . import models
 
 logger = logging.getLogger(__name__)
@@ -249,6 +249,13 @@ class DispatchersOrderAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         return qs.filter(status=models.Order.PAID)
+
+
+class PeriodSelectForm(forms.Form):
+    PERIODS = ((30, '30 days'), (60, '60 days'), (90, '90 days'))
+    period = forms.TypedChoiceField(
+        choices = PERIODS, coerce = int, required = True
+    )
 
 
 class ColoredAdminSite(admin.sites.AdminSite):
