@@ -254,8 +254,7 @@ class DispatchersOrderAdmin(admin.ModelAdmin):
 class PeriodSelectForm(forms.Form):
     PERIODS = ((30, '30 days'), (60, '60 days'), (90, '90 days'))
     period = forms.TypedChoiceField(
-        choices = PERIODS, coerce = int, required = True
-    )
+        choices = PERIODS, coerce = int, required = True)
 
 
 class ColoredAdminSite(admin.sites.AdminSite):
@@ -277,7 +276,13 @@ class ReportingColoredAdminSite(ColoredAdminSite):
             path(
                 'orders_per_day/',
                 self.admin_view(self.orders_per_day),
-            )
+                name = 'orders_per_day',
+            ),
+            path(
+                'most_bought_products/',
+                self.admin_view(self.most_bought_products),
+                name = 'most_bought_products',
+            ),
         ]
         return my_urls + urls
     
@@ -302,15 +307,50 @@ class ReportingColoredAdminSite(ColoredAdminSite):
             values = values,
         )
         return TemplateResponse(
-            request, 'orders_per_day.html', context
+            request, 'orders_per_day.html', context)
+    
+    def most_bought_products(self, request):
+        if request.method == 'POST':
+            form = PeriodSelectForm(request.POST)
+            if form.is_valid():
+                days = form.cleaned_data['period']
+                starting_day = datetime.now() - timedelta(days=days)
+                data = (
+                    models.OrderLine.objects.filter(
+                        order__date_added__gt=starting_day)
+                    .values('product__name')
+                    .annotate(c=Count('id'))
+                )
+                logger.info(
+                    'most_bought_products query: %s', data.query
+                )
+                labels = [ x['product__name'] for x in data ]
+                values = [ x['c'] for x in data ]
+        else:
+            form = PeriodSelectForm()
+            labels = None
+            values = None
+        
+        context = dict(
+            self.each_context(request),
+            title = 'Most bought products',
+            form = form,
+            labels = labels,
+            values = values,
         )
+        return TemplateResponse(
+            request, 'most_bought_products.html', context)
     
     def index(self, request, extra_context=None):
         reporting_pages = [
             {
                 'name': 'Orders per day',
                 'link': 'orders_per_day/',
-            }
+            },
+            {
+                'name': 'Most bought products',
+                'link': 'most_bought_products/',
+            },
         ]
         if not extra_context:
             extra_context = {}
@@ -325,8 +365,7 @@ class OwnersAdminSite(ReportingColoredAdminSite):
     
     def has_permission(self, request):
         return(
-            request.user.is_active and request.user.is_superuser
-        )
+            request.user.is_active and request.user.is_superuser)
 
 
 class CentralOfficeAdminSite(ReportingColoredAdminSite):
@@ -336,8 +375,7 @@ class CentralOfficeAdminSite(ReportingColoredAdminSite):
     
     def has_permission(self, request):
         return(
-            request.user.is_active and request.user.is_employee
-        )
+            request.user.is_active and request.user.is_employee)
 
 
 class DispatchersAdminSite(ColoredAdminSite):
@@ -347,8 +385,8 @@ class DispatchersAdminSite(ColoredAdminSite):
     
     def has_permission(self, request):
         return(
-            request.user.is_active and request.user.is_dispatcher
-        )
+            request.user.is_active and request.user.is_dispatcher)
+
 
 main_admin = OwnersAdminSite()
 main_admin.register(models.Product, ProductAdmin)
