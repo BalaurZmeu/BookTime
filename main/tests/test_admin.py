@@ -80,7 +80,7 @@ class TestAdminViews(TestCase):
         
             response = self.client.post(
                 reverse(
-                    'admin:invoice', kwargs={'order_id': order_id}
+                    'admin:invoice', kwargs={'order_id': order.id}
                 )
             )
             self.assertEqual(response.status_code, 200)
@@ -89,10 +89,17 @@ class TestAdminViews(TestCase):
             with open(
                 'main/fixtures/invoice_test_order.html', 'w'
             ) as fixture:
-                fixture.write()
+                fixture.write(content)
             
+            response = self.client.get(
+                reverse(
+                    'admin:invoice', kwargs={'order_id': order.id}
+                ),
+                {'format': 'pdf'}
+            )
+            content = response.content
             with open(
-                'main/fixtures/invoice_test_order.pdf', 'w'
+                'main/fixtures/invoice_test_order.pdf', 'wb'
             ) as fixture:
-                fixture.write()
+                fixture.write(content)
 
