@@ -95,5 +95,10 @@ urlpatterns = [
         name='order_dashboard'),
     
     path('api/', include(router.urls)),
+    
+    path(
+        'customer_service/<int:order_id>/',
+        views.room,
+        name='cs_chat'),
 ]
 
