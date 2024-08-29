@@ -20,8 +20,8 @@ django-filter = "*"
 django-widget-tweaks = "*"
 djangorestframework = "*"
 weasyprint = "*"
-channels = "*"
 channels-redis = "*"
+channels = {extras = ["daphne"], version = "*"}
 
 [dev-packages]
 

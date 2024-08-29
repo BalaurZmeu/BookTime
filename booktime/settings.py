@@ -45,6 +45,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'channels',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -123,7 +124,7 @@ REST_FRAMEWORK = {
 
 WSGI_APPLICATION = 'booktime.wsgi.application'
 
-ASGI_APPLICATION = 'booktime.routing.application'
+ASGI_APPLICATION = 'booktime.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {
