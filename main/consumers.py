@@ -76,4 +76,54 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
 
     async def disconnect(self, close_code):
         if not self.scope['user'].is_anonymous:
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    'type': 'chat_leave',
+                    'username': self.scope[
+                        'user'
+                    ].get_full_name(),
+                },
+            )
+            logger.info(
+                'Closing chat stream for user %s',
+                self.scope['user'],
+            )
+            await self.channel_layer.group_discard(
+                self.room_group_name,
+                self.channel_name,
+            )
+    
+    async def receive_json(self, content):
+        typ = content.get('type')
+        if typ == 'message':
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    'type': 'chat_message',
+                    'username': self.scope[
+                        'user'
+                    ].get_full_name(),
+                    'message': content['message'],
+                },
+            )
+        elif typ == 'heartbeat':
+            await self.r_conn.setex(
+                '%s_%s'
+                % (
+                    self.room_group_name,
+                    self.scope['user'].email,
+                ),
+                10, # expiration (in 10 seconds)
+                '1', # dummy value
+            )
+    
+    async def chat_message(self, event):
+        await self.send_json(event)
+
+    async def chat_join(self, event):
+        await self.send_json(event)
+
+    async def chat_leave(self, event):
+        await self.send_json(event)
 
