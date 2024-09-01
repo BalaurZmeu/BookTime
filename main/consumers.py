@@ -28,7 +28,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         self.order_id = self.scope['url_route']['kwargs'][
             'order_id']
         self.room_group_name = (
-            'customer_service_%s' % self.order_id)
+            'customer_service/%s' % self.order_id)
         authorized = False
         if self.scope['user'].is_anonymous:
             await self.close()

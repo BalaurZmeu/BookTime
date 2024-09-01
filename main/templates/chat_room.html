@@ -19,7 +19,7 @@
   var roomName = {{ room_name_json }};
   var chatSocket = new ReconnectingWebSocket(
     'ws://' + window.location.host +
-    '/ws/customer-service/' +
+    '/customer_service/' +
     roomName + '/'
   );
   chatSocket.onmessage = function(e) {
